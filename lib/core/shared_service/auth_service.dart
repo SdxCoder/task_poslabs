@@ -1,12 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:client/core/core.dart';
-import 'package:local_auth/auth_strings.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:local_auth/error_codes.dart' as auth_error;
 
 /*
   * @class AuthService
@@ -17,7 +13,7 @@ import 'package:local_auth/error_codes.dart' as auth_error;
 class AuthService {
   final Dio _dio = Dio();
   final _facebookLogin = FacebookLogin();
-  final _localAuth = LocalAuthentication();
+
 
   // current logged in user
   User _currentUser;
@@ -125,35 +121,5 @@ class AuthService {
     await _facebookLogin.logOut();
   }
 
-  Future authenticateWithTouchID() async {
-    const iosStrings = const IOSAuthMessages(
-        cancelButton: 'cancel',
-        goToSettingsButton: 'settings',
-        goToSettingsDescription: 'Please set up your Touch ID.',
-        lockOut: 'Please reenable your Touch ID');
 
-    const androidStrings = const AndroidAuthMessages(
-      cancelButton: 'cancel',
-      goToSettingsButton: 'settings',
-      goToSettingsDescription: 'Please set up your Touch ID.',
-      fingerprintNotRecognized: "Unable to recognise fingureprint",
-    );
-
-    try {
-      bool isAuthenticated = await _localAuth.authenticateWithBiometrics(
-          stickyAuth: true,
-          iOSAuthStrings: iosStrings,
-          androidAuthStrings: androidStrings,
-          sensitiveTransaction: true,
-          localizedReason: 'Access app with your fingure print');
-
-      return isAuthenticated;
-    } on PlatformException catch (e) {
-      if (e.code == auth_error.notAvailable) {
-        return "";
-      }
-
-      print(e.message);
-    }
-  }
 }

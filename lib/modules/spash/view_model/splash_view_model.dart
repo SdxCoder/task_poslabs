@@ -1,3 +1,4 @@
+import 'package:client/core/shared_service/touch_id_service.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:client/core/core.dart';
 import 'package:stacked/stacked.dart';
@@ -13,6 +14,7 @@ import 'package:stacked/stacked.dart';
 class SplashViewModel extends BaseViewModel {
   // dependency injection
   final _authService = Modular.get<AuthService>();
+  final _touchIdService = Modular.get<TouchIdService>();
 
 /*
  * @desc    This function checks user log in status.
@@ -22,23 +24,12 @@ class SplashViewModel extends BaseViewModel {
  */
   Future handleStartUpLogic() async {
     final bool loggedIn = await _authService.checkUserLoginStatus();
- 
+
     if (loggedIn) {
-         Modular.to.pushReplacementNamed(Routes.adminHome);
-     // await _handleTouchID();
+      //  Modular.to.pushReplacementNamed(Routes.adminHome);
+      await _touchIdService.handleTouchID();
     } else {
       Modular.to.pushReplacementNamed(Routes.login);
     }
-  }
-
-  Future _handleTouchID() async{
-    bool result = await _authService.authenticateWithTouchID();
-    if(result == true){
-      Modular.to.pushReplacementNamed(Routes.adminHome);
-    }
-    // else{
-    //   Future.delayed(Duration(milliseconds: 1));
-    //   await showDialogBox(title: "Failed", description: "Couldn't access");
-    // }
   }
 }

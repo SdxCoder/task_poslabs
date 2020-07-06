@@ -97,8 +97,12 @@ class HomeViewModel extends BaseViewModel {
 
   @override
   void dispose() {
-    if (_timer.isActive) {
-      _timer.cancel();
+    if (_timer != null) {
+
+       if (_timer.isActive) {
+ _timer.cancel();
+       }
+     
     }
 
     _currentPosition.close();

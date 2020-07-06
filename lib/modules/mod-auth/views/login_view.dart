@@ -19,19 +19,12 @@ class LoginView extends StatelessWidget {
         children: [
           Text("Sign-in with"),
           SizedBox(height: 8,),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(icon: Icon(FontAwesome.instagram), onPressed: () {}),
-              SizedBox(width: 8),
-              IconButton(
-                  icon: Icon(FontAwesome.facebook_official),
-                  onPressed: () async {
-                    print("login");
-                    await model.loginWithFacebook();
-                  }),
-            ],
-          ),
+          IconButton(
+              icon: Icon(FontAwesome.facebook_official),
+              onPressed: () async {
+                print("login");
+                await model.loginWithFacebook();
+              }),
         ],
       ),
     );

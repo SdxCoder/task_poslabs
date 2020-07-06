@@ -1,3 +1,4 @@
+import 'package:client/core/shared_service/touch_id_service.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:client/core/core.dart';
 import 'package:stacked/stacked.dart';
@@ -11,6 +12,7 @@ import 'package:stacked/stacked.dart';
 class AuthViewModel extends BaseViewModel {
   // Dependency Injection
   final _authService = Modular.get<AuthService>();
+   final _touchIdService = Modular.get<TouchIdService>();
 
   /*
    * @desc  Consumes auth service's sign in with facebook function
@@ -23,7 +25,11 @@ class AuthViewModel extends BaseViewModel {
     if (result is String) {
       await showDialogBox(title: "Error", description: result);
     } else {
-      Modular.to.pushReplacementNamed(Routes.adminHome);
+      _touchIdService.handleTouchID();
     }
   }
+
+
+ 
+
 }

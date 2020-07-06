@@ -7,6 +7,7 @@ import 'package:client/modules/spash/view/splash_screen.dart';
 import 'core/core.dart';
 import 'core/shared_service/location_service.dart';
 import 'core/shared_service/notification_service.dart';
+import 'core/shared_service/touch_id_service.dart';
 import 'main.dart';
 import 'modules/home/view/home_view.dart';
 
@@ -17,6 +18,7 @@ class AppModule extends MainModule {
         Bind((i) => AuthService()),
         Bind((i) => PushNotificationsService()),
         Bind((i) => LocationService()),
+        Bind((i) => TouchIdService()),
       ];
 
   @override

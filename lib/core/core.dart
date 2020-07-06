@@ -1,8 +1,7 @@
 // routes
 export './routes/routes.dart';
 
-// constants
-export './constants/constants.dart';
+
 
 // data models
 export './models/user.dart';

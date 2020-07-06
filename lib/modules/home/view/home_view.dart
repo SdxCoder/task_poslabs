@@ -1,3 +1,4 @@
+import 'package:client/core/core.dart';
 import 'package:client/core/shared_service/auth_service.dart';
 import 'package:client/modules/home/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             IconButton(
               icon: Icon(FontAwesome.sign_out),
               onPressed: () {
-                Modular.get<AuthService>().signOut();
+                Modular.get<AuthService>().signOut().then((value) {
+                  Modular.to.pushNamedAndRemoveUntil("/", ModalRoute.withName("/"));
+                });
               },
             )
           ],
@@ -90,12 +93,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     model.currentPosition.listen((currentPosition) {
                       _animatedMapMove(currentPosition, 5);
                      });
-                  },
-                ),
-                 RaisedButton(
-                  child: Text('fingure'),
-                  onPressed: ()async {
-                    Modular.get<AuthService>().authenticateWithTouchID();
                   },
                 ),
              
